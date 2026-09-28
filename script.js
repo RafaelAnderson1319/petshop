@@ -11,7 +11,6 @@ const closeCartButton = document.querySelector('.cart-close');
 const searchTrigger = document.querySelector('.search-trigger');
 const searchLayer = document.querySelector('.search-layer');
 const searchInput = document.querySelector('.product-search');
-const accountDialog = document.querySelector('.account-dialog');
 const storageKey = 'pawvita-cart';
 const whatsappNumber = '5511975104890';
 let cart = JSON.parse(localStorage.getItem(storageKey) || '[]');
@@ -101,14 +100,4 @@ searchInput.addEventListener('input', () => {
     card.classList.toggle('is-hidden', term && !card.textContent.toLocaleLowerCase('pt-BR').includes(term));
   });
 });
-document.querySelector('.account-trigger').addEventListener('click', () => accountDialog.showModal());
-document.querySelector('.account-close').addEventListener('click', () => accountDialog.close());
-accountDialog.querySelector('form').addEventListener('submit', (event) => {
-  event.preventDefault();
-  accountDialog.close();
-  toast.textContent = 'Acesso simulado com sucesso!';
-  toast.classList.add('show');
-  window.setTimeout(() => toast.classList.remove('show'), 2600);
-});
-
 renderCart();
