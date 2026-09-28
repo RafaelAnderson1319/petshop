@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="PawVita — pet shop completo para quem cuida com amor." />
+    <title>PawVita — Pets felizes, entregues com amor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .product-visual { overflow: hidden; }
+      .product-visual img { width: 100%; height: 100%; display: block; object-fit: contain; padding: 8px; filter: drop-shadow(0 9px 6px #493a241c); }
+      .circle { color: #345d2d; } .circle svg { width: 36px; height: 36px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; } .circle.health svg path { fill: currentColor; stroke: none; } .circle.sale { color: #345d2d; }
+      .circle svg { display: none; }.circle { background-repeat: no-repeat; background-position: center; background-size: 74%; }.circle.dog { background-image: url('assets/categoria-caes.png'); }.circle.cat { background-image: url('assets/categoria-gatos.png'); }.circle.food { background-image: url('assets/categoria-racoes.png'); }.circle.toy { background-image: url('assets/categoria-brinquedos.png'); }.circle.grooming { background-image: url('assets/categoria-higiene.png'); }.circle.accessories { background-image: url('assets/categoria-acessorios.png'); }.circle.health { background: #e8eee2 url('assets/categoria-saude.png') center 56% / 54% no-repeat !important; }.circle.sale { background: #ecf0df url('assets/categoria-ofertas.png') center 60% / 54% no-repeat !important; }
+      .cart-backdrop { position: fixed; inset: 0; z-index: 39; background: rgba(35, 34, 27, .35); opacity: 0; visibility: hidden; transition: .2s; }
+      .cart-drawer { position: fixed; z-index: 40; top: 0; right: 0; width: min(100%, 390px); height: 100dvh; padding: 26px; display: flex; flex-direction: column; background: #fffdf9; box-shadow: -12px 0 32px #251e151c; transform: translateX(105%); transition: transform .25s ease; }
+      .cart-drawer.open { transform: translateX(0); }.cart-backdrop.open { opacity: 1; visibility: visible; }
+      .cart-head { display:flex; align-items:center; justify-content:space-between; padding-bottom:18px; border-bottom:1px solid #eee6d9; }.cart-head h2 { margin:0; font:700 27px Fraunces, Georgia, serif; }.cart-close { border:0; background:transparent; color:#2d281f; font-size:30px; cursor:pointer; }
+      .cart-items { flex:1; overflow:auto; padding:12px 0; }.empty-cart { color:#746e62; text-align:center; padding:45px 12px; line-height:1.55; }.cart-item { display:grid; grid-template-columns:60px 1fr auto; align-items:center; gap:10px; padding:11px 0; border-bottom:1px solid #f1eadf; }.cart-item img { width:60px; height:60px; object-fit:contain; background:#f7f1e8; border-radius:8px; }.cart-item h3 { font-size:13px; margin:0 0 4px; }.cart-item p { margin:0; color:#345d2d; font-size:13px; font-weight:700; }.remove-item { border:0; color:#746e62; background:transparent; font-size:20px; cursor:pointer; padding:8px; }.cart-summary { border-top:1px solid #eee6d9; padding-top:15px; }.subtotal { display:flex; justify-content:space-between; font-weight:700; margin-bottom:13px; }.checkout-button { width:100%; border:0; border-radius:8px; background:#345d2d; color:white; padding:14px; font:700 14px 'DM Sans', sans-serif; cursor:pointer; }.checkout-button:hover { background:#244c28; }
+      .search-layer { position: fixed; inset: 0; z-index: 45; display: grid; place-items: start center; padding-top: 94px; background: rgba(35,34,27,.34); opacity:0; visibility:hidden; transition:.2s; }.search-layer.open { opacity:1; visibility:visible; }.search-box { width:min(92vw,560px); padding:10px; border-radius:12px; background:#fffdf9; box-shadow:0 15px 45px #0002; display:flex; gap:8px; }.search-box input { flex:1; border:0; outline:0; padding:11px; background:transparent; font:15px 'DM Sans',sans-serif; }.search-box button { border:0; background:#345d2d; color:white; width:42px; border-radius:8px; cursor:pointer; font-size:19px; }.product-card.is-hidden { display:none; }.account-dialog { border:0; border-radius:14px; padding:0; width:min(92vw,410px); box-shadow:0 18px 50px #0004; }.account-dialog::backdrop { background:rgba(35,34,27,.35); }.account-content { padding:28px; }.account-content h2 { margin:0 0 8px; font:700 28px Fraunces,Georgia,serif; }.account-content p { color:#746e62; font-size:13px; line-height:1.5; }.account-content label { display:grid; gap:6px; font-size:12px; font-weight:700; margin-top:13px; }.account-content input { border:1px solid #ded7cc; border-radius:7px; padding:11px; font:14px 'DM Sans',sans-serif; }.account-actions { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:20px; }.account-actions button { border:0; border-radius:7px; padding:11px 14px; font:700 13px 'DM Sans',sans-serif; cursor:pointer; }.account-actions .secondary { background:#f1eadf; color:#2d281f; }.account-actions .primary { background:#345d2d; color:white; }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Início da PawVita"><span class="paw">●</span><span>Paw<span>Vita</span></span></a>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false"><i></i><i></i><i></i></button>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#shop">Loja</a><a href="#categories">Categorias</a><a href="#shop">Marcas</a><a href="#offers">Ofertas</a><a href="#stories">Blog</a><a href="#about">Sobre nós</a>
+      </nav>
+      <div class="header-actions">
+        <button aria-label="Buscar produtos" class="line-icon search-trigger" type="button">⌕</button><button aria-label="Sua conta" class="line-icon account account-trigger" type="button">♙</button>
+        <button class="cart" type="button" aria-label="Abrir carrinho" aria-expanded="false">🛒 <b>0</b></button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">PARA ABANAR RABOS E RONRONAR</p>
+          <h1 id="hero-title">Tudo para <em>Pets Felizes</em> entregue com amor <span>♥</span></h1>
+          <p class="hero-text">Rações, brinquedos e tudo o que seu melhor amigo precisa.</p>
+          <div class="trust-row" aria-label="Vantagens da loja">
+            <span><b>✿</b> Qualidade<br />Premium</span><span><b>▰</b> Entrega rápida<br />e segura</span><span><b>♢</b> Promessa de<br />pet feliz</span>
+          </div>
+          <a class="button" href="#shop">Ver mais vendidos <span>→</span></a>
+        </div>
+        <div class="hero-image"><img src="assets/golden-retriever-hero.png" alt="Golden retriever feliz com pote de ração, ursinho e brinquedo de corda" /></div>
+      </section>
+
+      <section class="catalog-shell" id="categories" aria-label="Catálogo PawVita">
+        <div class="categories">
+          <a href="#shop"><span class="circle dog"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 10 5 5 4 13m20-3 3-5 1 8M8 12c0-5 16-5 16 0v9c0 7-16 7-16 0Z"/><circle cx="12" cy="17" r="1"/><circle cx="20" cy="17" r="1"/><path d="M14 21q2 2 4 0"/></svg></span>Cães</a><a href="#shop"><span class="circle cat"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m8 12 1-7 5 4h4l5-4 1 7v9c0 7-16 7-16 0Z"/><circle cx="12" cy="17" r="1"/><circle cx="20" cy="17" r="1"/><path d="M14 21q2 2 4 0M8 20l-4-1m4 4-4 1m20-4 4-1m-4 5 4 1"/></svg></span>Gatos</a><a href="#shop"><span class="circle food"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 18h22l-2 8H7Z"/><path d="M8 17c0-6 16-6 16 0"/><path d="m20 5 5 5M18 7l5 5"/></svg></span>Rações</a><a href="#shop"><span class="circle toy"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="10"/><path d="M9 9l14 14M23 9 9 23"/><circle cx="16" cy="16" r="2"/></svg></span>Brinquedos</a><a href="#shop"><span class="circle grooming"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M12 9h8v4h2v14H10V13h2Z"/><path d="M13 5h6v4h-6Z"/><path d="M13 18h6"/></svg></span>Higiene</a><a href="#shop"><span class="circle accessories"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 9c8 5 10 5 18 0v7c-8 5-10 5-18 0Z"/><path d="M10 16v7m12-7v7M7 23h18"/><circle cx="16" cy="12" r="2"/></svg></span>Acessórios</a><a href="#shop"><span class="circle health"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M13 5h6v8h8v6h-8v8h-6v-8H5v-6h8Z"/></svg></span>Saúde</a><a href="#offers"><span class="circle sale"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="10" cy="10" r="3"/><circle cx="22" cy="22" r="3"/><path d="M23 8 9 24"/></svg></span>Ofertas</a>
+        </div>
+
+        <div class="promo-grid" id="offers">
+          <article class="welcome-card"><div><small>Chegou agora?</small><h2>Ganhe 10% OFF</h2><p>no seu primeiro pedido</p><code>BEMVINDO10</code></div><span class="puppy">🐶</span><span class="box">▰</span></article>
+          <div class="delivery-cards">
+            <article><div><h3>Frete Grátis</h3><p>Em pedidos acima de R$ 199</p></div><span>🚚</span></article>
+            <article><div><h3>Assine e Economize</h3><p>Nunca mais fique sem o essencial!</p></div><span>↻</span></article>
+          </div>
+        </div>
+
+        <div class="section-heading" id="shop"><div><p class="eyebrow">AMADO POR QUEM AMA PET</p><h2>Produtos em Destaque</h2></div><a href="#shop">Ver todos <span>→</span></a></div>
+        <div class="product-grid">
+          <article class="product-card"><span class="badge best">Mais vendido</span><div class="product-visual"><img src="assets/racao-premium.png" alt="Saco de ração premium e pote com grãos" /></div><div class="product-info"><h3>Ração PawVita Frango &amp; Arroz</h3><p class="stars">★★★★★ <small>(128)</small></p><div class="price"><strong>R$ 89,90</strong><button aria-label="Adicionar ração PawVita ao carrinho">🛒</button></div></div></article>
+          <article class="product-card"><span class="badge sale-badge">Oferta</span><div class="product-visual"><img src="assets/ursinho-apito.png" alt="Brinquedo de pelúcia em formato de cachorrinho" /></div><div class="product-info"><h3>Brinquedo Ursinho com Apito</h3><p class="stars">★★★★★ <small>(96)</small></p><div class="price"><strong>R$ 39,90</strong><del>R$ 49,90</del><button aria-label="Adicionar ursinho ao carrinho">🛒</button></div></div></article>
+          <article class="product-card"><span class="badge new">Novo</span><div class="product-visual"><img src="assets/shampoo-aveia.png" alt="Frasco de shampoo pet de aveia com pump verde" /></div><div class="product-info"><h3>Shampoo Pet de Aveia</h3><p class="stars">★★★★★ <small>(74)</small></p><div class="price"><strong>R$ 49,90</strong><button aria-label="Adicionar shampoo ao carrinho">🛒</button></div></div></article>
+          <article class="product-card"><div class="product-visual"><img src="assets/cama-conforto.png" alt="Cama pet verde acolchoada" /></div><div class="product-info"><h3>Cama Pet Conforto Acolchoada</h3><p class="stars">★★★★★ <small>(43)</small></p><div class="price"><strong>R$ 149,90</strong><button aria-label="Adicionar cama ao carrinho">🛒</button></div></div></article>
+        </div>
+
+        <section class="reasons" id="about"><h2>Por que as famílias amam a <span>PawVita</span><b>⌁</b></h2><div><article><i>❋</i><p>Produtos<br />bem selecionados</p></article><article><i>♙</i><p>Aprovado por<br />milhares</p></article><article><i>▣</i><p>Troca fácil<br />e sem burocracia</p></article><article><i>♥</i><p>Pagamento<br />seguro</p></article></div></section>
+        <section class="testimonial" id="stories"><div class="testimonial-photo"><img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=760&q=82" alt="Tutora abraçando um golden retriever" /></div><div class="quote"><b>“</b><p>A PawVita tem tudo que meu cachorro precisa! Ótima qualidade, entrega rápida e ele ama os brinquedos.</p><div class="stars">★★★★★</div><small><strong>Emily R.</strong> &nbsp; Mãe de pet</small></div></section>
+        <div class="dots"><b></b><i></i><i></i></div>
+      </section>
+    </main>
+    <footer><div><span>♢</span><p>100% de satisfação<br />garantida</p></div><div><span>♧</span><p>Amado por mais de<br />10 mil pets</p></div><div><span>▰</span><p>Entrega rápida<br />e confiável</p></div><div><span>♡</span><p>Atendimento que<br />cuida de você</p></div></footer>
+    <div class="toast" role="status" aria-live="polite">Adicionado ao carrinho! Seu pet vai amar. 🐾</div>
+    <div class="search-layer" aria-hidden="true"><div class="search-box"><input type="search" class="product-search" placeholder="Buscar produtos..." aria-label="Buscar produtos" /><button type="button" class="search-close" aria-label="Fechar busca">×</button></div></div>
+    <dialog class="account-dialog"><form class="account-content"><h2>Minha conta</h2><p>Entre para acompanhar seus pedidos e favoritos.</p><label>E-mail<input type="email" required placeholder="voce@email.com" /></label><label>Senha<input type="password" required placeholder="Sua senha" /></label><div class="account-actions"><button class="secondary account-close" type="button">Cancelar</button><button class="primary" type="submit">Entrar</button></div></form></dialog>
+    <div class="cart-backdrop" aria-hidden="true"></div>
+    <aside class="cart-drawer" aria-label="Seu carrinho" aria-hidden="true">
+      <div class="cart-head"><h2>Seu carrinho</h2><button class="cart-close" type="button" aria-label="Fechar carrinho">×</button></div>
+      <div class="cart-items" aria-live="polite"></div>
+      <div class="cart-summary"><div class="subtotal"><span>Subtotal</span><strong>R$ 0,00</strong></div><button class="checkout-button" type="button">Finalizar pedido</button></div>
+    </aside>
+    <script src="script.js"></script>
+  </body>
+</html>
